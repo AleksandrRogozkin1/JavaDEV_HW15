@@ -17,13 +17,13 @@ public class NoteService {
     public Note addNote(Note note) {
         long id = note.getId();
         if (notes.contains(id)) {
-            throw new IllegalArgumentException("Client already created");
+            throw new IllegalArgumentException("Note already created");
         } else {
             id = getLastId() + 1;
             note.setId(id);
             notes.add(note);
         }
-        System.out.println("Client has been added!");
+        System.out.println("Note has been added!");
         return note;
     }
 
@@ -40,7 +40,7 @@ public class NoteService {
             while (iterator.hasNext()) {
                 Note note = iterator.next();
                 if (note.getId() == id) {
-                    System.out.println("Client has been found!");
+                    System.out.println("Note has been found!");
                     return note;
                 }
             }
@@ -53,7 +53,7 @@ public class NoteService {
         Note oldNote = getById(note.getId());
         oldNote.setContent(note.getContent());
         oldNote.setTitle(note.getTitle());
-        System.out.println("Client has been updated!");
+        System.out.println("Note has been updated!");
     }
 
     public void deleteById(Long id) {
@@ -62,7 +62,7 @@ public class NoteService {
         } else {
             notes.remove(getById(id));
         }
-        System.out.println("Client has been deleted!");
+        System.out.println("Note has been deleted!");
     }
 
     public List<Note> listAll() {
