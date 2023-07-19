@@ -3,11 +3,7 @@ package com.goit.hw11.testapp.Services;
 import com.goit.hw11.testapp.entity.Note;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -45,8 +41,17 @@ public class NoteService {
                 }
             }
             return null;
+
         }
     }
+//    public Optional<Note> getById(long id) {
+//        if (!notes.contains(id)) {
+//            throw new IllegalArgumentException("Note not found");
+//        } else {
+//           return notes.stream().filter(note -> note.getId()== id).findFirst();
+//
+//        }
+//    }
 
 
     public void updateNote(Note note) {
@@ -55,6 +60,14 @@ public class NoteService {
         oldNote.setTitle(note.getTitle());
         System.out.println("Note has been updated!");
     }
+//    public void updateNote(Note note) {
+//        Optional<Note> noteOptional = this.notes.stream().filter(n -> n.getId() == note.getId()).findFirst();
+//        if (noteOptional.isPresent()) {
+//            this.notes.remove(noteOptional.get());
+//            this.notes.add(note);
+//        }
+//    }
+
 
     public void deleteById(Long id) {
         if (!notes.contains(id)) {
@@ -62,11 +75,14 @@ public class NoteService {
         } else {
             notes.remove(getById(id));
         }
+
         System.out.println("Note has been deleted!");
     }
+
 
     public List<Note> listAll() {
         return notes;
     }
+
 
 }
