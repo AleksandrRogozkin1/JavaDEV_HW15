@@ -1,9 +1,13 @@
 package com.goit.hw11.testapp.entity;
 
-import lombok.Data;
+import lombok.*;
 
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class Note {
     public long id;
     public String title;
