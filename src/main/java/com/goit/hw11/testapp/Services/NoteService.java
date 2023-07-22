@@ -45,11 +45,10 @@ public class NoteService {
     }
 
     public void updateNote(Note note) {
-
         Note ee=getById(note.getId());
         ee.setTitle(note.getTitle());
         ee.setContent(note.getContent());
-        notes.add(ee);
+
     }
 
 
