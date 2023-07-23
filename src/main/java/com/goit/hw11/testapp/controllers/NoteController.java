@@ -1,7 +1,8 @@
 package com.goit.hw11.testapp.controllers;
 
-import com.goit.hw11.testapp.services.NoteService;
+
 import com.goit.hw11.testapp.entity.Note;
+import com.goit.hw11.testapp.services.NoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class NoteController {
 
     @PostMapping("/create")
     public ModelAndView createNotes(@RequestParam(value="title")  String title,
-                                     @RequestParam(value="content") String content) {
+                                    @RequestParam(value="content") String content) {
         Note note = new Note();
         note.setTitle(title);
         note.setContent(content);
@@ -44,7 +45,7 @@ public class NoteController {
         return "update";
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @PostMapping("/update")
     public ModelAndView updateNotes(@RequestBody Note updatedNote)  {
         noteService.updateNote(updatedNote);
         return allNotes();

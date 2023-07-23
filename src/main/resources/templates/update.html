@@ -10,11 +10,11 @@
 
 <div>
     <form id="editNoteForm">
-    <input type="hidden" id="noteId" name="noteId" value="${note.id}">
-    <label><input required type="text" placeholder="Note text" min="0" th:value="${note.content}"/></label>
-    <label><input required type="text" name="name" placeholder="Note title" th:value="${note.title}"/></label>
-    <button type="submit">Save</button>
-    <button type="button" id="goBackButton">Back</button>
+        <input type="hidden" id="noteId" name="noteId" value="${note.id}">
+        <label><input required type="text" id="noteTitle" placeholder="Note text" min="0" th:value="${note.content}"/></label>
+        <label><input required type="text" id="noteContent" name="name" placeholder="Note title" th:value="${note.title}"/></label>
+        <button type="submit">Save</button>
+        <button type="button" id="goBackButton">Back</button>
     </form>
 </div>
 
@@ -23,8 +23,8 @@
         event.preventDefault();
 
         const noteId = [[${note.id}]];
-        const noteText = document.getElementById('noteText').value;
-        const noteAuthor = document.getElementById('noteAuthor').value;
+        const noteTitle = document.getElementById('noteTitle').value;
+        const noteContent = document.getElementById('noteContent').value;
 
         const data = {
             id: noteId,
