@@ -1,17 +1,18 @@
 package com.goit.hw11.testapp.Services;
 
 import com.goit.hw11.testapp.entity.Note;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
+@Slf4j
 @Service
 public class NoteService {
     private static final List<Note> notes = new ArrayList<>();
 
     public List<Note> getAll() {
-        return this.notes;
+        return notes;
     }
 
     public Note addNote(Note note) {
@@ -19,7 +20,7 @@ public class NoteService {
             note.setId(getLastId() + 1);
             notes.add(note);
         } else {
-            note.setId(1);
+            note.setId(1L);
             notes.add(note);
         }
         log.info("Note has been added!");
@@ -31,11 +32,8 @@ public class NoteService {
         return note.getId();
     }
 
-
     public Note getById(long id) {
-        Iterator<Note> iterator = notes.iterator();
-        while (iterator.hasNext()) {
-            Note note = iterator.next();
+        for (Note note : notes) {
             if (note.getId() == id) {
                 log.info("Note has been found!");
                 return note;
@@ -48,14 +46,10 @@ public class NoteService {
         Note ee = getById(note.getId());
         ee.setTitle(note.getTitle());
         ee.setContent(note.getContent());
-
     }
-
 
     public void deleteById(Long id) {
         notes.remove(getById(id));
-        System.out.println("Note has been deleted!");
+        log.info("Note has been deleted!");
     }
-
-
 }
