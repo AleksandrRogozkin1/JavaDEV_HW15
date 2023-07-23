@@ -1,4 +1,4 @@
-package com.goit.hw11.testapp.Services;
+package com.goit.hw11.testapp.services;
 
 import com.goit.hw11.testapp.entity.Note;
 import lombok.extern.slf4j.Slf4j;

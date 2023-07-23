@@ -1,6 +1,6 @@
 package com.goit.hw11.testapp.controllers;
 
-import com.goit.hw11.testapp.Services.NoteService;
+import com.goit.hw11.testapp.services.NoteService;
 import com.goit.hw11.testapp.entity.Note;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
