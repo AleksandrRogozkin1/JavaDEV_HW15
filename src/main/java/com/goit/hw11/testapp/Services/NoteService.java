@@ -22,11 +22,11 @@ public class NoteService {
             note.setId(1);
             notes.add(note);
         }
-        System.out.println("Note has been added!");
+        log.info("Note has been added!");
         return note;
     }
 
-    private static long getLastId() {
+    private long getLastId() {
         Note note = notes.get(notes.size() - 1);
         return note.getId();
     }
@@ -37,7 +37,7 @@ public class NoteService {
         while (iterator.hasNext()) {
             Note note = iterator.next();
             if (note.getId() == id) {
-                System.out.println("Note has been found!");
+                log.info("Note has been found!");
                 return note;
             }
         }
@@ -45,7 +45,7 @@ public class NoteService {
     }
 
     public void updateNote(Note note) {
-        Note ee=getById(note.getId());
+        Note ee = getById(note.getId());
         ee.setTitle(note.getTitle());
         ee.setContent(note.getContent());
 

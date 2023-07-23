@@ -24,6 +24,7 @@ public class NoteController {
         result.addObject("notes",noteService.getAll());
       return result;
     }
+
     @PostMapping("/create")
     public ModelAndView createNotes( @RequestParam(value="title")  String title,
                                      @RequestParam(value="content") String content) {
@@ -35,22 +36,22 @@ public class NoteController {
         return allNotes();
     }
 
-    @PostMapping("/update")
-    public ModelAndView updateNotes(@RequestParam(value="id") long id,
-                                    @RequestParam(value="title") String title,
-                                     @RequestParam(value="content") String content)  {
-        Note note = new Note();
-        note.setId(id);
-        note.setTitle(title);
-        note.setContent(content);
-        noteService.updateNote(note);
+
+    @GetMapping("/update")
+    public String updateNote(@RequestParam(name = "id") Long id, Model model) {
+        model.addAttribute("note", noteService.getById(id));
+        return "update";
+    }
+
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public ModelAndView updateNotes(@RequestBody Note updatedNote)  {
+        noteService.updateNote(updatedNote);
         return allNotes();
     }
+
     @PostMapping("/delete")
     public ModelAndView updateNotes( @RequestParam(value="id") long id)  {
         noteService.deleteById(id);
         return allNotes();
     }
-
-
 }
