@@ -27,13 +27,18 @@ public class NoteController {
         result.addObject("notes",noteService.getAll());
         return result;
     }
-
+//
+//    @PostMapping("/create")
+//    public ModelAndView createNotes(@RequestParam(value="title")  String title,
+//                                    @RequestParam(value="content") String content) {
+//        Note note = new Note();
+//        note.setTitle(title);
+//        note.setContent(content);
+//        noteService.addNote(note);
+//        return allNotes();
+//    }
     @PostMapping("/create")
-    public ModelAndView createNotes(@RequestParam(value="title")  String title,
-                                    @RequestParam(value="content") String content) {
-        Note note = new Note();
-        note.setTitle(title);
-        note.setContent(content);
+    public ModelAndView createNotes(@ModelAttribute Note note) {
         noteService.addNote(note);
         return allNotes();
     }
@@ -52,7 +57,7 @@ public class NoteController {
     }
 
     @PostMapping("/delete")
-    public ModelAndView updateNotes(@RequestParam(value="id") long id)  {
+    public ModelAndView deleteNotes(@RequestParam(value="id") long id)  {
         noteService.deleteById(id);
         return allNotes();
     }
