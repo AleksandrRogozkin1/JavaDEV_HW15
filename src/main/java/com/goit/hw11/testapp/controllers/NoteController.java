@@ -3,6 +3,7 @@ package com.goit.hw11.testapp.controllers;
 
 import com.goit.hw11.testapp.entity.Note;
 import com.goit.hw11.testapp.services.NoteService;
+import com.goit.hw11.testapp.services.exception.NoteNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,19 +47,31 @@ public class NoteController {
 
     @GetMapping("/update")
     public String updateNote(@RequestParam(name = "id") Long id, Model model) {
-        model.addAttribute("note", noteService.getById(id));
+        try {
+            model.addAttribute("note", noteService.getById(id));
+        } catch (NoteNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return "update";
     }
 
     @PostMapping("/update")
     public ModelAndView updateNotes(@RequestBody Note updatedNote)  {
-        noteService.updateNote(updatedNote);
+        try {
+            noteService.updateNote(updatedNote);
+        } catch (NoteNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return allNotes();
     }
 
     @PostMapping("/delete")
     public ModelAndView deleteNotes(@RequestParam(value="id") long id)  {
-        noteService.deleteById(id);
+        try {
+            noteService.deleteById(id);
+        } catch (NoteNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         return allNotes();
     }
 }

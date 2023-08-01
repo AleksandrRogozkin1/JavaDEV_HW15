@@ -1,55 +1,60 @@
 package com.goit.hw11.testapp.services;
 
 import com.goit.hw11.testapp.entity.Note;
+import com.goit.hw11.testapp.repository.NoteRepository;
+import com.goit.hw11.testapp.services.exception.NoteNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
 @Slf4j
 @Service
 public class NoteService {
-    private static final List<Note> notes = new ArrayList<>();
+
+    private final NoteRepository noteRepository;
+
+    @Autowired
+    public NoteService(NoteRepository noteRepository) {
+        this.noteRepository = noteRepository;
+    }
+
 
     public List<Note> getAll() {
-        return notes;
+        return noteRepository.findAll();
     }
 
     public Note addNote(Note note) {
-        if (notes.size() >= 1) {
-            note.setId(getLastId() + 1);
-            notes.add(note);
+        return noteRepository.save(note);
+    }
+
+
+    public Note getById(long id) throws NoteNotFoundException {
+        Optional<Note> optionalNote = noteRepository.findById(id);
+        if (optionalNote.isPresent()) {
+            return optionalNote.get();
         } else {
-            note.setId(1L);
-            notes.add(note);
+            throw new NoteNotFoundException(id);
         }
-        log.info("Note has been added!");
-        return note;
     }
 
-    private long getLastId() {
-        Note note = notes.get(notes.size() - 1);
-        return note.getId();
-    }
-
-    public Note getById(long id) {
-        for (Note note : notes) {
-            if (note.getId() == id) {
-                log.info("Note has been found!");
-                return note;
-            }
-        }
-        return null;
-    }
-
-    public void updateNote(Note note) {
+    public void updateNote(Note note) throws NoteNotFoundException {
         Note ee = getById(note.getId());
         ee.setTitle(note.getTitle());
         ee.setContent(note.getContent());
+        noteRepository.save(ee);
     }
 
-    public void deleteById(Long id) {
-        notes.remove(getById(id));
-        log.info("Note has been deleted!");
+    public void deleteById(Long id) throws NoteNotFoundException {
+        Optional<Note> optionalNote = noteRepository.findById(id);
+        if (optionalNote.isPresent()) {
+            noteRepository.deleteById(id);
+        } else {
+            throw new NoteNotFoundException(id);
+        }
+
     }
 }
