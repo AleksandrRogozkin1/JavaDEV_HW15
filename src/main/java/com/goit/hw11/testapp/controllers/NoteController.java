@@ -25,10 +25,11 @@ public class NoteController {
     @GetMapping("/list")
     public ModelAndView allNotes() {
         ModelAndView result = new ModelAndView("/list");
-        result.addObject("notes",noteService.getAll());
+        result.addObject("notes", noteService.getAll());
         return result;
     }
-//
+
+    //
 //    @PostMapping("/create")
 //    public ModelAndView createNotes(@RequestParam(value="title")  String title,
 //                                    @RequestParam(value="content") String content) {
@@ -56,7 +57,7 @@ public class NoteController {
     }
 
     @PostMapping("/update")
-    public ModelAndView updateNotes(@RequestBody Note updatedNote)  {
+    public ModelAndView updateNotes(@RequestBody Note updatedNote) {
         try {
             noteService.updateNote(updatedNote);
         } catch (NoteNotFoundException e) {
@@ -66,7 +67,7 @@ public class NoteController {
     }
 
     @PostMapping("/delete")
-    public ModelAndView deleteNotes(@RequestParam(value="id") long id)  {
+    public ModelAndView deleteNotes(@RequestParam(value = "id") long id) {
         try {
             noteService.deleteById(id);
         } catch (NoteNotFoundException e) {
