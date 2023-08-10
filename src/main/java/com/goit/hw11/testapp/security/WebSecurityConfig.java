@@ -1,4 +1,4 @@
-package com.goit.hw11.testapp.config;
+package com.goit.hw11.testapp.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
